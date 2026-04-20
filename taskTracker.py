@@ -1,6 +1,14 @@
+import json, os
+
 class TaskManager:
     def __init__(self):
         self.tasks_li = []
+        if os.path.exists("tasks.json"):
+            try:
+                with open("tasks.json", "r") as f:
+                    self.tasks_li = json.load(f)
+            except:
+                pass
     
     def addTask(self):
         title = input("Enter Title: ")
@@ -13,6 +21,8 @@ class TaskManager:
 
         self.tasks_li.append(data)
         print("Task added successfully!\n")
+        with open("tasks.json", "w") as f:
+            json.dump(self.tasks_li, f, indent = 4)
 
     def viewTask(self):
         if len(self.tasks_li) != 0:
@@ -30,10 +40,10 @@ class TaskManager:
             try:
                 self.tasks_li.pop(serial_no-1)
                 print("Task deleted successfully!\n")
-            except ValueError:
-                print("Input is not valid!\n")
+                with open("tasks.json", "w") as f:
+                    json.dump(self.tasks_li, f, indent = 4)
             except IndexError:
-                print("Enter a valid serial no.!\n")
+                print("Invalid Serial No.!\n")
 
         else:
             print("No task available for deletion!\n")
@@ -55,9 +65,9 @@ while(True):
         elif choice==3:
             obj.deleteTask()
         elif choice==4:
-            print("Thank you for using our task manager! Have a great day!")
+            print("Thank you for using our task manager. Have a great day!")
             break
         else:
             print("Input is not valid!\n")
     except ValueError:
-        print("Input is not valid!\n")
+        print("Vai, thik kore lakhen!😒😒\n")
