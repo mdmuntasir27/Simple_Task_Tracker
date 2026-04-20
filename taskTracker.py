@@ -70,4 +70,4 @@ while(True):
         else:
             print("Input is not valid!\n")
     except ValueError:
-        print("Vai, thik kore lakhen!😒😒\n")
+        print("Invalid input!\n")

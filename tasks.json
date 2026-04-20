@@ -1,10 +1,14 @@
 [
     {
-        "title": "Workout",
-        "description": "3 sets of Pushups || 9 reps"
-    },
-    {
         "title": "Ostad's assignment",
         "description": "Finish Ostad's assignment 5"
+    },
+    {
+        "title": "Make dinner",
+        "description": "Prepare rice and lentils for dinner"
+    },
+    {
+        "title": "Sleep",
+        "description": "Sleep is a task. Very important task. So, I am also adding this one here."
     }
 ]
