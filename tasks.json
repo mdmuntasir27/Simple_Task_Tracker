@@ -1,14 +1,22 @@
 [
     {
-        "title": "Ostad's assignment",
-        "description": "Finish Ostad's assignment 5"
+        "title": "Study Python",
+        "description": "Finish basics",
+        "completed": true
     },
     {
-        "title": "Make dinner",
-        "description": "Prepare rice and lentils for dinner"
+        "title": "Do homework",
+        "description": "Differentiation",
+        "completed": true
     },
     {
-        "title": "Sleep",
-        "description": "Sleep is a task. Very important task. So, I am also adding this one here."
+        "title": "Read a paper",
+        "description": "On FastAPI pipeline",
+        "completed": false
+    },
+    {
+        "title": "Cooking",
+        "description": "Prepare snacks",
+        "completed": false
     }
 ]

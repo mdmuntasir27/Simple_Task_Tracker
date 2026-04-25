@@ -16,7 +16,8 @@ class TaskManager:
 
         data = {
             "title": title,
-            "description": des
+            "description": des,
+            "completed": False
         }
 
         self.tasks_li.append(data)
@@ -29,7 +30,10 @@ class TaskManager:
             print("========== All Tasks ==========")
             for i in range(0, len(self.tasks_li)):
                 print(f"++++++++ Task {i+1} ++++++++")
-                print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\n")
+                if self.tasks_li[i]['completed'] == False:
+                    print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\nStatus: Not Completed\n")
+                else:
+                    print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\nStatus: Completed\n")
         else:
             print("No task available!\n")
 
@@ -38,15 +42,40 @@ class TaskManager:
             self.viewTask()
             serial_no = int(input("Enter the task no. that you want to delete: "))
             try:
-                self.tasks_li.pop(serial_no-1)
-                print("Task deleted successfully!\n")
-                with open("tasks.json", "w") as f:
-                    json.dump(self.tasks_li, f, indent = 4)
+                if serial_no>0:
+                    self.tasks_li.pop(serial_no-1)
+                    print("Task deleted successfully!\n")
+                    with open("tasks.json", "w") as f:
+                        json.dump(self.tasks_li, f, indent = 4)
+                else:
+                    print("Invalid Serial No.!\n")
             except IndexError:
                 print("Invalid Serial No.!\n")
 
         else:
             print("No task available for deletion!\n")
+
+    def updateTaskStatus(self):
+        if len(self.tasks_li) != 0:
+            self.viewTask()
+            serial_no = int(input("Enter task number to mark as completed: "))
+            try:
+                if serial_no>0:
+                    if(self.tasks_li[serial_no-1]['completed'] == False):
+                        self.tasks_li[serial_no-1]['completed'] = True
+                        print("Task marked as completed!\n")
+                    else:
+                        print("The task is already completed!\n")
+
+                    with open("tasks.json", "w") as f:
+                        json.dump(self.tasks_li, f, indent = 4)
+                else:
+                    print("Invalid Serial No.!\n")
+            except IndexError:
+                print("Invalid Serial No.!\n")
+
+        else:
+            print("No task available to mark completed!\n")
 
 obj = TaskManager()
 print("===== Task Tracker =====")
@@ -55,7 +84,8 @@ while(True):
     print("1. Add Task")
     print("2. View Tasks")
     print("3. Delete Tasks")
-    print("4. Exit")
+    print("4. Mark Task as Completed")
+    print("5. Exit")
     try:
         choice = int(input("Enter choice: "))
         if choice==1:
@@ -65,6 +95,8 @@ while(True):
         elif choice==3:
             obj.deleteTask()
         elif choice==4:
+            obj.updateTaskStatus()
+        elif choice==5:
             print("Thank you for using our task manager. Have a great day!")
             break
         else:
