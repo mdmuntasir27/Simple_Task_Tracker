@@ -2,21 +2,21 @@
     {
         "title": "Study Python",
         "description": "Finish basics",
-        "completed": true
+        "priority": "High"
     },
     {
         "title": "Do homework",
         "description": "Differentiation",
-        "completed": true
+        "priority": "Low"
     },
     {
         "title": "Read a paper",
         "description": "On FastAPI pipeline",
-        "completed": false
+        "priority": "High"
     },
     {
-        "title": "Cooking",
-        "description": "Prepare snacks",
-        "completed": false
+        "title": "Assignment",
+        "description": "Assignment on computer architecture",
+        "priority": "Low"
     }
 ]

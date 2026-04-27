@@ -13,27 +13,28 @@ class TaskManager:
     def addTask(self):
         title = input("Enter Title: ")
         des = input("Enter Description: ")
+        prio = input("Enter Priority (High/Medium/Low): ")
 
-        data = {
-            "title": title,
-            "description": des,
-            "completed": False
-        }
+        if (prio in ["High", "Medium", "Low"]):
+            data = {
+                "title": title,
+                "description": des,
+                "priority": prio
+            }
 
-        self.tasks_li.append(data)
-        print("Task added successfully!\n")
-        with open("tasks.json", "w") as f:
-            json.dump(self.tasks_li, f, indent = 4)
+            self.tasks_li.append(data)
+            print("Task added successfully!\n")
+            with open("tasks.json", "w") as f:
+                json.dump(self.tasks_li, f, indent = 4)
+        else:
+            print("Invalid input!\n")
 
     def viewTask(self):
         if len(self.tasks_li) != 0:
             print("========== All Tasks ==========")
             for i in range(0, len(self.tasks_li)):
                 print(f"++++++++ Task {i+1} ++++++++")
-                if self.tasks_li[i]['completed'] == False:
-                    print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\nStatus: Not Completed\n")
-                else:
-                    print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\nStatus: Completed\n")
+                print(f"Title: {self.tasks_li[i]['title']}\nDescription: {self.tasks_li[i]["description"]}\nPriority: {self.tasks_li[i]["priority"]}\n")
         else:
             print("No task available!\n")
 
@@ -55,27 +56,28 @@ class TaskManager:
         else:
             print("No task available for deletion!\n")
 
-    def updateTaskStatus(self):
+    def updateTaskPriority(self):
         if len(self.tasks_li) != 0:
             self.viewTask()
-            serial_no = int(input("Enter task number to mark as completed: "))
+            serial_no = int(input("Enter task number to update priority: "))
             try:
                 if serial_no>0:
-                    if(self.tasks_li[serial_no-1]['completed'] == False):
-                        self.tasks_li[serial_no-1]['completed'] = True
-                        print("Task marked as completed!\n")
-                    else:
-                        print("The task is already completed!\n")
+                    prio = input("Enter new priority (High/Medium/Low): ")
+                    if (prio in ["High", "Medium", "Low"]):
+                        self.tasks_li[serial_no-1]["priority"] = prio
+                        print("Task priority updated successfully!\n")
 
-                    with open("tasks.json", "w") as f:
-                        json.dump(self.tasks_li, f, indent = 4)
+                        with open("tasks.json", "w") as f:
+                            json.dump(self.tasks_li, f, indent = 4)
+                    else:
+                        print("Invalid input!\n")
                 else:
                     print("Invalid Serial No.!\n")
             except IndexError:
                 print("Invalid Serial No.!\n")
 
         else:
-            print("No task available to mark completed!\n")
+            print("No task available!\n")
 
 obj = TaskManager()
 print("===== Task Tracker =====")
@@ -84,7 +86,7 @@ while(True):
     print("1. Add Task")
     print("2. View Tasks")
     print("3. Delete Tasks")
-    print("4. Mark Task as Completed")
+    print("4. Update Task Priority")
     print("5. Exit")
     try:
         choice = int(input("Enter choice: "))
@@ -95,7 +97,7 @@ while(True):
         elif choice==3:
             obj.deleteTask()
         elif choice==4:
-            obj.updateTaskStatus()
+            obj.updateTaskPriority()
         elif choice==5:
             print("Thank you for using our task manager. Have a great day!")
             break
